@@ -12,9 +12,13 @@
   "app": {
     "windows": [
       {
-        "title": "riftwalker",
-        "width": 800,
-        "height": 600
+        "title": "Riftwalker",
+        "width": 1920,
+        "height": 40,
+        "decorations": false,
+        "transparent": true,
+        "resizable": false,
+        "shadow": false
       }
     ],
     "security": {
