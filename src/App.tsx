@@ -1,4 +1,19 @@
+import { useEffect, useState } from "react";
+import { listen } from "@tauri-apps/api/event";
+
 function App() {
+  const [activeWorkspace, setActiveWorkspace] = useState(1);
+
+  useEffect(() => {
+    const unlisten = listen<number>("workspace-hotkey", (event) => {
+      setActiveWorkspace(event.payload);
+    });
+
+    return () => {
+      unlisten.then((fn) => fn());
+    };
+  }, []);
+
   return (
     <main className="app">
       <div className="bar">
@@ -9,10 +24,14 @@ function App() {
           </div>
 
           <nav className="workspaces">
-            <button>1</button>
-            <button className="active">2</button>
-            <button>3</button>
-            <button>4</button>
+            {[1, 2, 3, 4].map((workspace) => (
+              <button
+                key={workspace}
+                className={activeWorkspace === workspace ? "active" : ""}
+              >
+                {workspace}
+              </button>
+            ))}
           </nav>
         </div>
 
@@ -29,7 +48,7 @@ function App() {
         </div>
       </div>
     </main>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -27,8 +27,11 @@ windows = { version = "0.62.2", features = [
     "Win32_UI_Shell",
     "Win32_UI_WindowsAndMessaging",
     "Win32_UI_HiDpi",
+    "Win32_System",
+    "Win32_System_Com",
 ] }
 raw-window-handle = "0.6.2"
+tauri-plugin-global-shortcut = "2.3.2"
 
 # Read the optimization guideline for more details: https://tauri.app/concept/size/#cargo-configuration
 [profile.release]
