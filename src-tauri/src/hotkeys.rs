@@ -1,38 +1,39 @@
 use crate::desktops;
-use std::sync::{
-    OnceLock,
-    atomic::{AtomicBool, Ordering},
-};
+
+use std::sync::OnceLock;
 use std::thread;
+
 use tauri::{AppHandle, Emitter};
 
 use windows::Win32::{
     Foundation::{HINSTANCE, LPARAM, LRESULT, WPARAM},
-    UI::WindowsAndMessaging::{
-        CallNextHookEx,
-        DispatchMessageW,
-        GetMessageW,
-        SetWindowsHookExW,
-        TranslateMessage,
-        UnhookWindowsHookEx,
-        KBDLLHOOKSTRUCT,
-        MSG,
-        WH_KEYBOARD_LL,
-        WM_KEYDOWN,
-        WM_KEYUP,
-        WM_QUIT,
-        WM_SYSKEYDOWN,
-        WM_SYSKEYUP,
+    UI::{
+        Input::KeyboardAndMouse::GetAsyncKeyState,
+        WindowsAndMessaging::{
+            CallNextHookEx,
+            DispatchMessageW,
+            GetMessageW,
+            SetWindowsHookExW,
+            TranslateMessage,
+            UnhookWindowsHookEx,
+            KBDLLHOOKSTRUCT,
+            MSG,
+            WH_KEYBOARD_LL,
+            WM_KEYDOWN,
+            WM_KEYUP,
+            WM_QUIT,
+            WM_SYSKEYDOWN,
+            WM_SYSKEYUP,
+        },
     },
 };
 
-static WIN_DOWN: AtomicBool = AtomicBool::new(false);
 static APP_HANDLE: OnceLock<AppHandle> = OnceLock::new();
 
-const VK_LWIN: u32 = 0x5B;
+const VK_LWIN: i32 = 0x5B;
 
 pub fn start(app: AppHandle) {
-    let _ = APP_HANDLE.set(app);
+    let _ = APP_HANDLE.set(app.clone());
 
     thread::spawn(|| {
         unsafe {
@@ -75,94 +76,74 @@ unsafe extern "system" fn keyboard_proc(
     lparam: LPARAM,
 ) -> LRESULT {
     if code < 0 {
-        return CallNextHookEx(
-            None,
-            code,
-            wparam,
-            lparam,
-        );
+        return CallNextHookEx(None, code, wparam, lparam);
     }
 
     let event = wparam.0 as u32;
-    let key = *(lparam.0 as *const KBDLLHOOKSTRUCT);
+    let key = &*(lparam.0 as *const KBDLLHOOKSTRUCT);
 
     match event {
         WM_KEYDOWN | WM_SYSKEYDOWN => {
-            if key.vkCode == VK_LWIN {
-                WIN_DOWN.store(true, Ordering::Relaxed);
-            }
+            if (0x31..=0x34).contains(&key.vkCode) {
+                let win_down = (GetAsyncKeyState(VK_LWIN) as u16 & 0x8000) != 0;
 
-            if WIN_DOWN.load(Ordering::Relaxed) {
-                match key.vkCode {
-                    0x31..=0x34 => {
-                        let workspace = (key.vkCode - 0x30) as usize;
-                        let index = workspace - 1;
+                if win_down {
+                    let workspace = (key.vkCode - 0x30) as usize;
+                    let index = workspace - 1;
 
-                        println!("Riftwalker hotkey: Win+{}", workspace);
+                    println!("Riftwalker hotkey: Win+{}", workspace);
 
-                        thread::spawn(move || {
-                            unsafe {
-                                let com_result = windows::Win32::System::Com::CoInitializeEx(
-                                    None,
-                                    windows::Win32::System::Com::COINIT_APARTMENTTHREADED,
+                    thread::spawn(move || {
+                        unsafe {
+                            let com_result = windows::Win32::System::Com::CoInitializeEx(
+                                None,
+                                windows::Win32::System::Com::COINIT_APARTMENTTHREADED,
+                            );
+
+                            if com_result.is_err() {
+                                eprintln!(
+                                    "Failed to initialize COM for workspace switch: {com_result:?}"
+                                );
+                                return;
+                            }
+                        }
+
+                        match desktops::switch_desktop(index) {
+                            Ok(()) => {
+                                println!(
+                                    "Riftwalker switched to workspace {}",
+                                    workspace
                                 );
 
-                                if com_result.is_err() {
-                                    eprintln!(
-                                        "Failed to initialize COM for workspace switch: {com_result:?}"
-                                    );
-                                    return;
-                                }
-                            }
-
-                            match desktops::switch_desktop(index) {
-                                Ok(()) => {
-                                    println!(
-                                        "Riftwalker switched to workspace {}",
-                                        workspace
-                                    );
-
-                                    if let Some(app) = APP_HANDLE.get() {
-                                        if let Err(error) =
-                                            app.emit("workspace-hotkey", workspace)
-                                        {
-                                            eprintln!(
-                                                "Failed to emit workspace hotkey: {error}"
-                                            );
-                                        }
+                                if let Some(app) = APP_HANDLE.get() {
+                                    if let Err(error) =
+                                        app.emit("workspace-hotkey", workspace)
+                                    {
+                                        eprintln!(
+                                            "Failed to emit workspace hotkey: {error}"
+                                        );
                                     }
                                 }
-
-                                Err(error) => {
-                                    eprintln!(
-                                        "Failed to switch to workspace {}: {error}",
-                                        workspace
-                                    );
-                                }
                             }
-                        });
 
-                        return LRESULT(1);
-                    }
+                            Err(error) => {
+                                eprintln!(
+                                    "Failed to switch to workspace {}: {error}",
+                                    workspace
+                                );
+                            }
+                        }
+                    });
 
-                    _ => {}
+                    return LRESULT(1);
                 }
             }
         }
 
-        WM_KEYUP | WM_SYSKEYUP => {
-            if key.vkCode == VK_LWIN {
-                WIN_DOWN.store(false, Ordering::Relaxed);
-            }
-        }
+        WM_KEYUP | WM_SYSKEYUP => {}
 
         _ => {}
     }
 
-    CallNextHookEx(
-        None,
-        code,
-        wparam,
-        lparam,
-    )
+    CallNextHookEx(None, code, wparam, lparam)
 }

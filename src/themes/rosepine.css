@@ -1,0 +1,26 @@
+[data-theme="rose-pine"] {
+	--color-bg: #191724;
+	--color-surface: rgba(31, 29, 46, 0.94);
+	--color-surface-hover: rgba(224, 222, 244, 0.07);
+
+	--color-border: rgba(196, 167, 231, 0.24);
+	--color-border-subtle: rgba(224, 222, 244, 0.08);
+	--color-border-active: rgba(196, 167, 231, 0.58);
+
+	--color-text: #e0def4;
+	--color-text-muted: #c4c0d8;
+	--color-text-dim: #6e6a86;
+	--color-text-active: #ffffff;
+
+	--color-accent: #ee97d4;
+	--color-accent-muted: rgba(196, 167, 231, 0.23);
+	--color-accent-glow: rgba(196, 167, 231, 0.2);
+	--color-accent-icon-glow: rgba(196, 167, 231, 0.68);
+
+	--color-success: #9ccfd8;
+	--color-warning: #f6c177;
+	--color-error: #eb6f92;
+
+	--shadow-bar: 0 12px 40px rgba(10, 8, 18, 0.55);
+	--shadow-inset: inset 0 1px rgba(224, 222, 244, 0.04);
+}

@@ -1,0 +1,27 @@
+[data-theme="gruvbox"] {
+  --color-bg: #1d2021;
+  --color-surface: rgba(40, 40, 40, 0.94);
+  --color-surface-hover: rgba(235, 219, 178, 0.07);
+
+  --color-border: rgba(254, 128, 25, 0.25);
+  --color-border-subtle: rgba(235, 219, 178, 0.09);
+  --color-border-active: rgba(254, 128, 25, 0.62);
+
+  --color-text: #ebdbb2;
+  --color-text-muted: #d5c4a1;
+  --color-text-dim: #928374;
+  --color-text-active: #fbf1c7;
+
+  --color-accent: #fe8019;
+  --color-accent-muted: rgba(254, 128, 25, 0.22);
+  --color-accent-glow: rgba(254, 128, 25, 0.20);
+  --color-accent-icon-glow: rgba(254, 128, 25, 0.68);
+
+  --color-success: #b8bb26;
+  --color-warning: #fabd2f;
+  --color-error: #fb4934;
+
+  --shadow-bar: 0 12px 40px rgba(0, 0, 0, 0.60);
+  --shadow-inset: inset 0 1px rgba(235, 219, 178, 0.04);
+}
+

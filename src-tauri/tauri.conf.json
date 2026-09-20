@@ -21,6 +21,19 @@
         "shadow": false,
         "focus": false,
         "focusable": false
+      },
+      {
+        "label": "theme-picker",
+        "title": "Riftwalker chrome selector",
+        "decorations": false,
+        "visible": false,
+        "transparent": true,
+        "resizable": false,
+        "center": true,
+        "focus": false,
+        "focusable": false,
+        "shadow": false,
+        "skipTaskbar": true
       }
     ],
     "security": {

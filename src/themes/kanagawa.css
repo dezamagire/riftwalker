@@ -1,0 +1,26 @@
+[data-theme="kanagawa"] {
+  --color-bg: #1f1f28;
+  --color-surface: rgba(31, 31, 40, 0.94);
+  --color-surface-hover: rgba(220, 215, 186, 0.07);
+
+  --color-border: rgba(126, 156, 216, 0.26);
+  --color-border-subtle: rgba(220, 215, 186, 0.08);
+  --color-border-active: rgba(126, 156, 216, 0.62);
+
+  --color-text: #dcd7ba;
+  --color-text-muted: #c8c093;
+  --color-text-dim: #727169;
+  --color-text-active: #fffdf0;
+
+  --color-accent: #7e9cd8;
+  --color-accent-muted: rgba(126, 156, 216, 0.22);
+  --color-accent-glow: rgba(126, 156, 216, 0.20);
+  --color-accent-icon-glow: rgba(126, 156, 216, 0.68);
+
+  --color-success: #98bb6c;
+  --color-warning: #e6c384;
+  --color-error: #c34043;
+
+  --shadow-bar: 0 12px 40px rgba(0, 0, 0, 0.60);
+  --shadow-inset: inset 0 1px rgba(220, 215, 186, 0.04);
+}

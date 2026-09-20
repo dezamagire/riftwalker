@@ -1,0 +1,26 @@
+[data-theme="jade"] {
+  --color-bg: #07100d;
+  --color-surface: rgba(9, 20, 16, 0.94);
+  --color-surface-hover: rgba(110, 231, 183, 0.07);
+
+  --color-border: rgba(52, 211, 153, 0.25);
+  --color-border-subtle: rgba(167, 243, 208, 0.08);
+  --color-border-active: rgba(52, 211, 153, 0.62);
+
+  --color-text: #d1fae5;
+  --color-text-muted: #a7f3d0;
+  --color-text-dim: #66877b;
+  --color-text-active: #ecfdf5;
+
+  --color-accent: #34d399;
+  --color-accent-muted: rgba(52, 211, 153, 0.22);
+  --color-accent-glow: rgba(52, 211, 153, 0.20);
+  --color-accent-icon-glow: rgba(52, 211, 153, 0.70);
+
+  --color-success: #6ee7b7;
+  --color-warning: #fbbf24;
+  --color-error: #fb7185;
+
+  --shadow-bar: 0 12px 40px rgba(0, 0, 0, 0.60);
+  --shadow-inset: inset 0 1px rgba(167, 243, 208, 0.04);
+}

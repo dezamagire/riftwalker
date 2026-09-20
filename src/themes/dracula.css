@@ -1,0 +1,26 @@
+[data-theme="dracula"] {
+  --color-bg: #191a21;
+  --color-surface: rgba(40, 42, 54, 0.94);
+  --color-surface-hover: rgba(248, 248, 242, 0.07);
+
+  --color-border: rgba(189, 147, 249, 0.26);
+  --color-border-subtle: rgba(248, 248, 242, 0.08);
+  --color-border-active: rgba(189, 147, 249, 0.62);
+
+  --color-text: #f8f8f2;
+  --color-text-muted: #c7c7bd;
+  --color-text-dim: #6272a4;
+  --color-text-active: #ffffff;
+
+  --color-accent: #bd93f9;
+  --color-accent-muted: rgba(189, 147, 249, 0.22);
+  --color-accent-glow: rgba(189, 147, 249, 0.20);
+  --color-accent-icon-glow: rgba(189, 147, 249, 0.72);
+
+  --color-success: #50fa7b;
+  --color-warning: #f1fa8c;
+  --color-error: #ff5555;
+
+  --shadow-bar: 0 12px 40px rgba(0, 0, 0, 0.60);
+  --shadow-inset: inset 0 1px rgba(248, 248, 242, 0.04);
+}

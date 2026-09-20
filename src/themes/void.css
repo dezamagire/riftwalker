@@ -1,0 +1,28 @@
+:root, [data-theme="void"]{
+    --color-bg: #08090f;
+  --color-surface: rgba(9, 10, 19, 0.9);
+  --color-surface-hover: rgba(255, 255, 255, 0.06);
+
+  --color-border: rgba(135, 104, 255, 0.24);
+  --color-border-subtle: rgba(255, 255, 255, 0.07);
+  --color-border-active: rgba(145, 117, 255, 0.55);
+
+  --color-text: #ddd9e8;
+  --color-text-muted: #aaa5b5;
+  --color-text-dim: #777286;
+  --color-text-active: #ffffff;
+
+  --color-accent: #a889ff;
+  --color-accent-muted: rgba(128, 92, 255, 0.28);
+  --color-accent-glow: rgba(128, 92, 255, 0.22);
+  --color-accent-icon-glow: rgba(128, 92, 255, 0.8);
+
+  --color-success: #8bcf9b;
+  --color-warning: #d6b36a;
+  --color-error: #d47b8a;
+
+  --shadow-bar: 0 12px 40px rgba(0, 0, 0, 0.45);
+  --shadow-inset: inset 0 1px rgba(255, 255, 255, 0.04);
+
+  --font-mono: "JetBrains Mono", monospace;
+}

@@ -29,6 +29,10 @@ windows = { version = "0.62.2", features = [
     "Win32_UI_HiDpi",
     "Win32_System",
     "Win32_System_Com",
+    "Win32_UI_Input",
+    "Win32_UI_Input_KeyboardAndMouse",
+    "Win32_System_ProcessStatus",
+    "Win32_System_Threading",
 ] }
 raw-window-handle = "0.6.2"
 tauri-plugin-global-shortcut = "2.3.2"
